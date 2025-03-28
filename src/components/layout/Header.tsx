@@ -1,15 +1,12 @@
 
-import { ShoppingCart, User, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Link } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { useCart } from "@/hooks/use-cart";
 
 const Header = () => {
   const isMobile = useIsMobile();
-  const { items } = useCart();
-  const cartItemsCount = items.length;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -30,9 +27,6 @@ const Header = () => {
                   </Link>
                   <Link to="/kitchens" className="text-lg font-medium hover:text-orange-500 transition-colors">
                     Kitchens
-                  </Link>
-                  <Link to="/orders" className="text-lg font-medium hover:text-orange-500 transition-colors">
-                    My Orders
                   </Link>
                   <Link to="/admin" className="text-lg font-medium hover:text-orange-500 transition-colors">
                     Admin
@@ -61,12 +55,6 @@ const Header = () => {
               Kitchens
             </Link>
             <Link
-              to="/orders"
-              className="text-sm font-medium transition-colors hover:text-orange-500"
-            >
-              My Orders
-            </Link>
-            <Link
               to="/admin"
               className="text-sm font-medium transition-colors hover:text-orange-500"
             >
@@ -75,24 +63,8 @@ const Header = () => {
           </nav>
         )}
         
-        <div className="flex items-center gap-2">
-          <Link to="/cart">
-            <Button variant="ghost" size="icon" className="relative">
-              <ShoppingCart className="h-5 w-5" />
-              {cartItemsCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                  {cartItemsCount}
-                </span>
-              )}
-              <span className="sr-only">Cart</span>
-            </Button>
-          </Link>
-          <Link to="/account">
-            <Button variant="ghost" size="icon">
-              <User className="h-5 w-5" />
-              <span className="sr-only">Account</span>
-            </Button>
-          </Link>
+        <div className="flex items-center">
+          {/* Empty div to maintain flex layout */}
         </div>
       </div>
     </header>
