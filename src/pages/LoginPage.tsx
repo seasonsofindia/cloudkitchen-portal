@@ -10,7 +10,7 @@ import { Lock } from "lucide-react";
 
 // Mock credentials for demo purposes
 const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "password";
+const ADMIN_PASSWORD = "seasonsofindia";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
