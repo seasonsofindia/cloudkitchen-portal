@@ -30,11 +30,6 @@ const HeroSection = () => {
                 Browse Kitchens
               </Button>
             </Link>
-            <Link to="/admin">
-              <Button size="lg" variant="outline">
-                Manage Menus
-              </Button>
-            </Link>
           </div>
         </div>
       </div>
