@@ -36,7 +36,7 @@ const LoginPage = () => {
         toast.success("Login successful!");
         navigate(from, { replace: true });
       } else {
-        toast.error("Invalid credentials. Try admin/password");
+        toast.error("Invalid credentials. Try admin/seasonsofindia");
       }
       setIsLoading(false);
     }, 1000);
@@ -77,7 +77,7 @@ const LoginPage = () => {
                 <Input
                   id="password"
                   type="password"
-                  placeholder="password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
@@ -91,7 +91,7 @@ const LoginPage = () => {
                 {isLoading ? "Logging in..." : "Login"}
               </Button>
               <p className="text-sm text-center text-muted-foreground">
-                Hint: Use username "admin" and password "password"
+                Hint: Use username "admin" and password "seasonsofindia"
               </p>
             </form>
           </CardContent>
