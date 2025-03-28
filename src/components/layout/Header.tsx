@@ -1,12 +1,22 @@
 
-import { Menu } from "lucide-react";
+import { Menu, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useAuth } from "@/context/AuthContext";
+import { toast } from "sonner";
 
 const Header = () => {
   const isMobile = useIsMobile();
+  const { isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
@@ -31,6 +41,16 @@ const Header = () => {
                   <Link to="/admin" className="text-lg font-medium hover:text-orange-500 transition-colors">
                     Admin
                   </Link>
+                  {isAuthenticated && (
+                    <Button 
+                      variant="ghost" 
+                      className="flex justify-start gap-2 text-lg font-medium hover:text-orange-500 transition-colors p-0"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="h-5 w-5" />
+                      Logout
+                    </Button>
+                  )}
                 </nav>
               </SheetContent>
             </Sheet>
@@ -64,7 +84,12 @@ const Header = () => {
         )}
         
         <div className="flex items-center">
-          {/* Empty div to maintain flex layout */}
+          {isAuthenticated && !isMobile && (
+            <Button variant="ghost" size="sm" onClick={handleLogout} className="flex items-center gap-2">
+              <LogOut className="h-4 w-4" />
+              Logout
+            </Button>
+          )}
         </div>
       </div>
     </header>
