@@ -36,3 +36,15 @@ export interface Order {
   deliveryAddress: string;
   total: number;
 }
+
+export interface DataType {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    address: string;
+  };
+  kitchens: Kitchen[];
+  menuItems: MenuItem[];
+  orders: Order[];
+}

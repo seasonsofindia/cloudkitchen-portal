@@ -13,16 +13,25 @@ const KitchensPage = () => {
   const locationParam = searchParams.get("location");
   
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState<string | null>(locationParam);
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   
   useEffect(() => {
+    // Priority: URL param > localStorage > null
     if (locationParam) {
       setSelectedLocation(locationParam);
+      localStorage.setItem("selectedLocation", locationParam);
+    } else {
+      const storedLocation = localStorage.getItem("selectedLocation");
+      if (storedLocation) {
+        setSelectedLocation(storedLocation);
+        setSearchParams({ location: storedLocation });
+      }
     }
-  }, [locationParam]);
+  }, [locationParam, setSearchParams]);
 
   const handleLocationSelect = (locationId: string) => {
     setSelectedLocation(locationId);
+    localStorage.setItem("selectedLocation", locationId);
     setSearchParams({ location: locationId });
   };
   
@@ -66,6 +75,7 @@ const KitchensPage = () => {
                 className="ml-2 text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   setSelectedLocation(null);
+                  localStorage.removeItem("selectedLocation");
                   setSearchParams({});
                 }}
               >

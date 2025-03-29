@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MapPin } from "lucide-react";
 import {
   Dialog,
@@ -31,11 +31,29 @@ const LocationSelector = ({
   selectedLocation, 
   onLocationSelect 
 }: LocationSelectorProps) => {
-  const [open, setOpen] = useState(!selectedLocation);
+  // Check localStorage on component mount
+  const [open, setOpen] = useState(false);
   const [tempLocation, setTempLocation] = useState(selectedLocation || "");
+  
+  // Initialize dialog open state based on whether a location is selected
+  useEffect(() => {
+    // Only open the dialog if no location is selected in props or localStorage
+    const storedLocation = localStorage.getItem("selectedLocation");
+    if (!selectedLocation && !storedLocation) {
+      setOpen(true);
+    }
+    
+    // If there's a stored location and no selected location in props,
+    // use the stored location
+    if (!selectedLocation && storedLocation) {
+      onLocationSelect(storedLocation);
+    }
+  }, [selectedLocation, onLocationSelect]);
 
   const handleApply = () => {
     if (tempLocation) {
+      // Save to localStorage when a location is selected
+      localStorage.setItem("selectedLocation", tempLocation);
       onLocationSelect(tempLocation);
       setOpen(false);
     }

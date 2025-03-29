@@ -1,4 +1,4 @@
-import { Kitchen, MenuItem } from "./types";
+import { Kitchen, MenuItem, Order, DataType } from "./types";
 
 // Sample user data (you might fetch this from an API in a real app)
 export const user = {
@@ -206,8 +206,69 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default {
+// Sample orders
+const orders: Order[] = [
+  {
+    id: "o1",
+    items: [
+      {
+        id: "m1",
+        kitchenId: "k1",
+        name: "Chicken Tikka Masala",
+        description: "Classic Indian dish with creamy tomato sauce.",
+        price: 14.99,
+        category: "Main Course",
+        imageUrl: "https://images.unsplash.com/photo-1564759372454-f97711b52596",
+        vegetarian: false,
+        quantity: 2,
+        kitchenName: "Taste of India"
+      },
+      {
+        id: "m2",
+        kitchenId: "k1",
+        name: "Vegetable Biryani",
+        description: "Fragrant rice dish with mixed vegetables and spices.",
+        price: 12.99,
+        category: "Main Course",
+        imageUrl: "https://images.unsplash.com/photo-1635133422458-6ca994474503",
+        vegetarian: true,
+        quantity: 1,
+        kitchenName: "Taste of India"
+      }
+    ],
+    status: "delivered",
+    date: "2023-11-05T15:30:00Z",
+    deliveryAddress: "123 Main St, Anytown",
+    total: 42.97
+  },
+  {
+    id: "o2",
+    items: [
+      {
+        id: "m3",
+        kitchenId: "k2",
+        name: "Classic Cheeseburger",
+        description: "Juicy beef patty with cheese, lettuce, and tomato.",
+        price: 9.99,
+        category: "Burgers",
+        imageUrl: "https://images.unsplash.com/photo-1568901342037-24c7e8a8c50f",
+        vegetarian: false,
+        quantity: 1,
+        kitchenName: "Burger Joint"
+      }
+    ],
+    status: "processing",
+    date: "2023-11-10T18:45:00Z",
+    deliveryAddress: "123 Main St, Anytown",
+    total: 9.99
+  }
+];
+
+const data: DataType = {
   user,
   kitchens,
   menuItems,
+  orders
 };
+
+export default data;

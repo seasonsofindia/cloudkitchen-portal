@@ -2,12 +2,20 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import LocationSelector from "./LocationSelector";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  // Initialize from localStorage on component mount
+  useEffect(() => {
+    const storedLocation = localStorage.getItem("selectedLocation");
+    if (storedLocation) {
+      setSelectedLocation(storedLocation);
+    }
+  }, []);
 
   const handleLocationSelect = (locationId: string) => {
     setSelectedLocation(locationId);
