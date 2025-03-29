@@ -16,11 +16,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
-const LOCATIONS = [
-  { id: "18nd", name: "18 N D", address: "18 N D" },
-  { id: "105orange", name: "South Orange", address: "105 S Orange Ave" },
-];
+import { LOCATIONS } from "@/utils/locations";
 
 interface LocationSelectorProps {
   selectedLocation: string | null;
