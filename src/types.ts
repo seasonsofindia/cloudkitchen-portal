@@ -2,13 +2,20 @@
 export interface Kitchen {
   id: string;
   name: string;
-  description: string;
   cuisine: string;
+  description: string;
   imageUrl: string;
   deliveryTime: number;
   deliveryFee: number;
   rating: number;
-  location: string; // Added location field
+  location: string;
+  // Order links
+  directOrderLink?: string;
+  phoneNumber?: string;
+  uberEatsLink?: string;
+  doorDashLink?: string;
+  postmatesLink?: string;
+  grubhubLink?: string;
 }
 
 export interface MenuItem {
@@ -17,34 +24,27 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
-  category: string;
   imageUrl: string;
+  category: string;
   vegetarian: boolean;
   tags?: string[];
 }
 
 export interface CartItem extends MenuItem {
   quantity: number;
-  kitchenName: string;
 }
 
-export interface Order {
+export interface Filters {
+  cuisine?: string;
+  rating?: number;
+  price?: 'low' | 'medium' | 'high';
+  deliveryTime?: number;
+}
+
+export interface LocationData {
   id: string;
-  items: CartItem[];
-  status: "pending" | "processing" | "delivered" | "cancelled";
-  date: string;
-  deliveryAddress: string;
-  total: number;
-}
-
-export interface DataType {
-  user: {
-    id: string;
-    name: string;
-    email: string;
-    address: string;
-  };
-  kitchens: Kitchen[];
-  menuItems: MenuItem[];
-  orders: Order[];
+  name: string;
+  address: string;
+  email: string;
+  phone: string;
 }

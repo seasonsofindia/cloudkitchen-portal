@@ -5,6 +5,7 @@ import Layout from "@/components/layout/Layout";
 import MenuList from "@/components/MenuList";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import OrderOptionsPopover from "@/components/OrderOptionsPopover";
 import data from "@/data";
 import { Kitchen, MenuItem } from "@/types";
 
@@ -66,6 +67,9 @@ const KitchenDetailPage = () => {
               <span>{kitchen.deliveryTime} min</span>
               <span>${kitchen.deliveryFee} delivery</span>
             </div>
+          </div>
+          <div className="absolute bottom-6 right-6">
+            <OrderOptionsPopover kitchen={kitchen} />
           </div>
         </div>
         
