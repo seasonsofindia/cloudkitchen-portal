@@ -50,6 +50,13 @@ const LocationSelector = ({
     if (tempLocation) {
       // Save to localStorage when a location is selected
       localStorage.setItem("selectedLocation", tempLocation);
+      
+      // Dispatch a storage event so other components (like Footer) can react
+      window.dispatchEvent(new StorageEvent('storage', {
+        key: 'selectedLocation',
+        newValue: tempLocation
+      }));
+      
       onLocationSelect(tempLocation);
       setOpen(false);
     }

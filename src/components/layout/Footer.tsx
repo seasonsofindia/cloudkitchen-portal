@@ -11,7 +11,27 @@ const Footer = () => {
   });
 
   useEffect(() => {
-    // Get selected location from localStorage
+    // Initial setup of contact info
+    updateContactInfo();
+    
+    // Setup event listener for localStorage changes
+    window.addEventListener("storage", handleStorageChange);
+    
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+  
+  // Handle storage changes from other components
+  const handleStorageChange = (event: StorageEvent) => {
+    if (event.key === "selectedLocation") {
+      updateContactInfo();
+    }
+  };
+  
+  // Function to update contact info based on current localStorage
+  const updateContactInfo = () => {
     const storedLocation = localStorage.getItem("selectedLocation");
     const locationData = getLocationById(storedLocation);
     
@@ -20,7 +40,7 @@ const Footer = () => {
       phone: locationData.phone,
       address: locationData.address
     });
-  }, []);
+  };
 
   return (
     <footer className="bg-secondary text-secondary-foreground py-8">
