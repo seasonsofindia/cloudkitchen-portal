@@ -29,12 +29,17 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Edit, Plus, Trash2 } from "lucide-react";
+import { Edit, Plus, Trash2, MapPin } from "lucide-react";
 import KitchenForm from "@/components/admin/KitchenForm";
 import MenuItemForm from "@/components/admin/MenuItemForm";
 import data from "@/data";
 import { Kitchen, MenuItem } from "@/types";
 import { toast } from "sonner";
+
+const LOCATIONS = [
+  { id: "18nd", name: "18 N D", address: "18 N D" },
+  { id: "105orange", name: "South Orange", address: "105 S Orange Ave" },
+];
 
 const AdminPage = () => {
   const [kitchens, setKitchens] = useState<Kitchen[]>([]);
@@ -129,6 +134,11 @@ const AdminPage = () => {
     ? menuItems.filter((item) => item.kitchenId === selectedKitchenId)
     : [];
 
+  const getLocationName = (locationId: string) => {
+    const location = LOCATIONS.find(loc => loc.id === locationId);
+    return location ? location.name : 'Not set';
+  };
+
   return (
     <Layout>
       <div className="max-w-6xl mx-auto">
@@ -166,6 +176,7 @@ const AdminPage = () => {
                     <TableRow>
                       <TableHead>Name</TableHead>
                       <TableHead>Cuisine</TableHead>
+                      <TableHead>Location</TableHead>
                       <TableHead>Delivery Time</TableHead>
                       <TableHead>Delivery Fee</TableHead>
                       <TableHead>Rating</TableHead>
@@ -177,6 +188,12 @@ const AdminPage = () => {
                       <TableRow key={kitchen.id}>
                         <TableCell className="font-medium">{kitchen.name}</TableCell>
                         <TableCell>{kitchen.cuisine}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-1">
+                            <MapPin className="h-3 w-3" />
+                            {getLocationName(kitchen.location)}
+                          </div>
+                        </TableCell>
                         <TableCell>{kitchen.deliveryTime} min</TableCell>
                         <TableCell>${kitchen.deliveryFee.toFixed(2)}</TableCell>
                         <TableCell>{kitchen.rating}</TableCell>
@@ -207,7 +224,7 @@ const AdminPage = () => {
                     
                     {kitchens.length === 0 && (
                       <TableRow>
-                        <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
+                        <TableCell colSpan={7} className="text-center py-6 text-muted-foreground">
                           No kitchens found. Add your first kitchen!
                         </TableCell>
                       </TableRow>

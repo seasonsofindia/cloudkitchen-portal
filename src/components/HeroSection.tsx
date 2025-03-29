@@ -1,8 +1,19 @@
 
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import LocationSelector from "./LocationSelector";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
+  const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  const handleLocationSelect = (locationId: string) => {
+    setSelectedLocation(locationId);
+    navigate(`/kitchens?location=${locationId}`);
+  };
+
   return (
     <section className="relative py-20 overflow-hidden">
       <div className="absolute inset-0 z-0">
@@ -24,8 +35,12 @@ const HeroSection = () => {
             Order from multiple cloud kitchens in a single delivery.
             Choose from a variety of cuisines, all prepared in our state-of-the-art facilities.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Link to="/kitchens">
+          <div className="flex flex-col sm:flex-row gap-4 items-center">
+            <LocationSelector 
+              selectedLocation={selectedLocation}
+              onLocationSelect={handleLocationSelect}
+            />
+            <Link to={selectedLocation ? `/kitchens?location=${selectedLocation}` : "/kitchens"}>
               <Button size="lg" className="bg-orange-500 hover:bg-orange-600">
                 Browse Kitchens
               </Button>

@@ -8,6 +8,7 @@ export interface Kitchen {
   deliveryTime: number;
   deliveryFee: number;
   rating: number;
+  location: string; // Added location field
 }
 
 export interface MenuItem {
