@@ -1,29 +1,13 @@
 
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useCart } from "@/hooks/use-cart";
+import { Card, CardContent } from "@/components/ui/card";
 import { MenuItem } from "@/types";
-import { toast } from "sonner";
 
 interface MenuItemCardProps {
   item: MenuItem;
   kitchenId: string;
 }
 
-const MenuItemCard = ({ item, kitchenId }: MenuItemCardProps) => {
-  const { addItem } = useCart();
-  const [isAdding, setIsAdding] = useState(false);
-
-  const handleAddToCart = () => {
-    setIsAdding(true);
-    setTimeout(() => {
-      addItem({ ...item, kitchenId });
-      setIsAdding(false);
-      toast.success(`Added ${item.name} to cart`);
-    }, 500);
-  };
-
+const MenuItemCard = ({ item }: MenuItemCardProps) => {
   return (
     <Card className="overflow-hidden h-full flex flex-col">
       <div className="relative aspect-square overflow-hidden">
@@ -45,15 +29,6 @@ const MenuItemCard = ({ item, kitchenId }: MenuItemCardProps) => {
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Button 
-          onClick={handleAddToCart} 
-          disabled={isAdding} 
-          className="w-full bg-orange-500 hover:bg-orange-600"
-        >
-          {isAdding ? "Adding..." : "Add to Cart"}
-        </Button>
-      </CardFooter>
     </Card>
   );
 };

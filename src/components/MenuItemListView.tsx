@@ -1,28 +1,12 @@
 
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useCart } from "@/hooks/use-cart";
 import { MenuItem } from "@/types";
-import { toast } from "sonner";
 
 interface MenuItemListViewProps {
   item: MenuItem;
   kitchenId: string;
 }
 
-const MenuItemListView = ({ item, kitchenId }: MenuItemListViewProps) => {
-  const { addItem } = useCart();
-  const [isAdding, setIsAdding] = useState(false);
-
-  const handleAddToCart = () => {
-    setIsAdding(true);
-    setTimeout(() => {
-      addItem({ ...item, kitchenId });
-      setIsAdding(false);
-      toast.success(`Added ${item.name} to cart`);
-    }, 500);
-  };
-
+const MenuItemListView = ({ item }: MenuItemListViewProps) => {
   return (
     <div className="flex flex-col sm:flex-row gap-4 border rounded-lg overflow-hidden hover:shadow-md transition-shadow">
       <div className="sm:w-1/4 h-[200px] sm:h-auto relative">
@@ -51,15 +35,6 @@ const MenuItemListView = ({ item, kitchenId }: MenuItemListViewProps) => {
               </span>
             ))}
           </div>
-        </div>
-        <div className="flex justify-end mt-4">
-          <Button 
-            onClick={handleAddToCart} 
-            disabled={isAdding}
-            className="bg-orange-500 hover:bg-orange-600"
-          >
-            {isAdding ? "Adding..." : "Add to Cart"}
-          </Button>
         </div>
       </div>
     </div>
