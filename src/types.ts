@@ -8,7 +8,14 @@ export interface Kitchen {
   deliveryTime: number;
   deliveryFee: number;
   rating: number;
-  location: string; // Added location field
+  location: string;
+  // Delivery platform links
+  directOrderLink?: string;
+  phoneNumber?: string;
+  uberEatsLink?: string;
+  doorDashLink?: string;
+  postmatesLink?: string;
+  grubhubLink?: string;
 }
 
 export interface MenuItem {

@@ -8,7 +8,7 @@ export const user = {
   address: "123 Main St, Anytown",
 };
 
-// Updated kitchen data to include location property
+// Updated kitchen data to include location and ordering options
 const kitchens: Kitchen[] = [
   {
     id: "k1",
@@ -19,7 +19,12 @@ const kitchens: Kitchen[] = [
     deliveryTime: 30,
     deliveryFee: 4.99,
     rating: 4.7,
-    location: "18nd" // Added location
+    location: "18nd",
+    directOrderLink: "https://tasteofindia.com/order",
+    phoneNumber: "+1 (555) 123-4567",
+    uberEatsLink: "https://ubereats.com/restaurant/taste-of-india",
+    doorDashLink: "https://doordash.com/store/taste-of-india",
+    grubhubLink: "https://grubhub.com/restaurant/taste-of-india"
   },
   {
     id: "k2",
@@ -30,7 +35,11 @@ const kitchens: Kitchen[] = [
     deliveryTime: 25,
     deliveryFee: 3.99,
     rating: 4.5,
-    location: "105orange" // Added location
+    location: "105orange",
+    directOrderLink: "https://burgerjoint.com/order",
+    phoneNumber: "+1 (555) 987-6543",
+    uberEatsLink: "https://ubereats.com/restaurant/burger-joint",
+    postmatesLink: "https://postmates.com/restaurant/burger-joint"
   },
   {
     id: "k3",
@@ -41,7 +50,11 @@ const kitchens: Kitchen[] = [
     deliveryTime: 35,
     deliveryFee: 5.99,
     rating: 4.8,
-    location: "18nd" // Added location
+    location: "18nd",
+    directOrderLink: "https://sushiexpress.com/order",
+    phoneNumber: "+1 (555) 789-0123",
+    doorDashLink: "https://doordash.com/store/sushi-express",
+    grubhubLink: "https://grubhub.com/restaurant/sushi-express"
   },
   {
     id: "k4",
@@ -52,7 +65,10 @@ const kitchens: Kitchen[] = [
     deliveryTime: 28,
     deliveryFee: 4.49,
     rating: 4.6,
-    location: "105orange" // Added location
+    location: "105orange",
+    phoneNumber: "+1 (555) 456-7890",
+    uberEatsLink: "https://ubereats.com/restaurant/pizza-palace",
+    doorDashLink: "https://doordash.com/store/pizza-palace"
   },
   {
     id: "k5",
@@ -63,7 +79,11 @@ const kitchens: Kitchen[] = [
     deliveryTime: 22,
     deliveryFee: 3.49,
     rating: 4.4,
-    location: "18nd" // Added location
+    location: "18nd",
+    directOrderLink: "https://tacofiesta.com/order",
+    phoneNumber: "+1 (555) 234-5678",
+    postmatesLink: "https://postmates.com/restaurant/taco-fiesta",
+    grubhubLink: "https://grubhub.com/restaurant/taco-fiesta"
   },
   {
     id: "k6",
@@ -74,7 +94,10 @@ const kitchens: Kitchen[] = [
     deliveryTime: 32,
     deliveryFee: 4.79,
     rating: 4.5,
-    location: "105orange" // Added location
+    location: "105orange",
+    phoneNumber: "+1 (555) 345-6789",
+    uberEatsLink: "https://ubereats.com/restaurant/pho-delight",
+    doorDashLink: "https://doordash.com/store/pho-delight"
   },
 ];
 

@@ -11,6 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface KitchenFormProps {
   kitchen?: Kitchen;
@@ -46,6 +52,13 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
     deliveryFee: kitchen?.deliveryFee || 2.99,
     rating: kitchen?.rating || 4.5,
     location: kitchen?.location || "",
+    // Delivery platform links
+    directOrderLink: kitchen?.directOrderLink || "",
+    phoneNumber: kitchen?.phoneNumber || "",
+    uberEatsLink: kitchen?.uberEatsLink || "",
+    doorDashLink: kitchen?.doorDashLink || "",
+    postmatesLink: kitchen?.postmatesLink || "",
+    grubhubLink: kitchen?.grubhubLink || "",
   });
 
   const handleChange = (
@@ -212,6 +225,105 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
           </SelectContent>
         </Select>
       </div>
+
+      {/* Ordering Options Section */}
+      <Accordion type="single" collapsible defaultValue="ordering-options">
+        <AccordionItem value="ordering-options">
+          <AccordionTrigger className="font-medium">
+            Ordering Options
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="space-y-4 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="directOrderLink" className="text-sm font-medium">
+                    Direct Order Link
+                  </label>
+                  <Input
+                    id="directOrderLink"
+                    name="directOrderLink"
+                    value={form.directOrderLink}
+                    onChange={handleChange}
+                    placeholder="https://yourrestaurant.com/order"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="phoneNumber" className="text-sm font-medium">
+                    Phone Number
+                  </label>
+                  <Input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={form.phoneNumber}
+                    onChange={handleChange}
+                    placeholder="+1 (555) 123-4567"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">
+                  Delivery Platform Links
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="uberEatsLink" className="text-sm">
+                      UberEats
+                    </label>
+                    <Input
+                      id="uberEatsLink"
+                      name="uberEatsLink"
+                      value={form.uberEatsLink}
+                      onChange={handleChange}
+                      placeholder="https://ubereats.com/restaurant/your-restaurant"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="doorDashLink" className="text-sm">
+                      DoorDash
+                    </label>
+                    <Input
+                      id="doorDashLink"
+                      name="doorDashLink"
+                      value={form.doorDashLink}
+                      onChange={handleChange}
+                      placeholder="https://doordash.com/store/your-restaurant"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="postmatesLink" className="text-sm">
+                      Postmates
+                    </label>
+                    <Input
+                      id="postmatesLink"
+                      name="postmatesLink"
+                      value={form.postmatesLink}
+                      onChange={handleChange}
+                      placeholder="https://postmates.com/restaurant/your-restaurant"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="grubhubLink" className="text-sm">
+                      Grubhub
+                    </label>
+                    <Input
+                      id="grubhubLink"
+                      name="grubhubLink"
+                      value={form.grubhubLink}
+                      onChange={handleChange}
+                      placeholder="https://grubhub.com/restaurant/your-restaurant"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
 
       <div className="flex justify-end space-x-2 pt-4">
         <Button type="button" variant="outline" onClick={onCancel}>

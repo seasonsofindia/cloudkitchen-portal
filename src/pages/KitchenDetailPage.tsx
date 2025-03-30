@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import data from "@/data";
 import { Kitchen, MenuItem } from "@/types";
+import OrderOptionsPopover from "@/components/OrderOptionsPopover";
 
 const KitchenDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -69,7 +70,10 @@ const KitchenDetailPage = () => {
           </div>
         </div>
         
-        <p className="text-muted-foreground mb-8">{kitchen.description}</p>
+        <div className="flex justify-between items-start mb-8">
+          <p className="text-muted-foreground">{kitchen.description}</p>
+          <OrderOptionsPopover kitchen={kitchen} />
+        </div>
         
         <div className="mb-8">
           <h2 className="text-2xl font-bold mb-6">Menu</h2>
