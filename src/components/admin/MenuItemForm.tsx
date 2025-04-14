@@ -1,5 +1,5 @@
 
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { MenuItem } from "@/types";
 import { toast } from "sonner";
 import { Tag } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface MenuItemFormProps {
   item?: MenuItem;
@@ -23,7 +24,22 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
   const [category, setCategory] = useState(item?.category || "");
   const [imageUrl, setImageUrl] = useState(item?.imageUrl || "");
   const [vegetarian, setVegetarian] = useState(item?.vegetarian || false);
-  const [tags, setTags] = useState(item?.tags?.join(", ") || "");
+  const [tagInput, setTagInput] = useState("");
+  const [tags, setTags] = useState<string[]>(item?.tags || []);
+  
+  const handleAddTag = () => {
+    if (tagInput.trim()) {
+      // Add the tag if it doesn't already exist
+      if (!tags.includes(tagInput.trim())) {
+        setTags([...tags, tagInput.trim()]);
+      }
+      setTagInput("");
+    }
+  };
+  
+  const handleRemoveTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove));
+  };
   
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -39,8 +55,6 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       return;
     }
     
-    const tagsArray = tags ? tags.split(",").map(tag => tag.trim()).filter(Boolean) : [];
-    
     onSave({
       name,
       description,
@@ -48,9 +62,16 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       category,
       imageUrl: imageUrl || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
       vegetarian,
-      tags: tagsArray,
+      tags,
       kitchenId
     });
+  };
+  
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddTag();
+    }
   };
   
   return (
@@ -115,17 +136,44 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Tag className="h-4 w-4" />
-          <Label htmlFor="tags">Custom Tags (comma separated)</Label>
+          <Label htmlFor="tags">Custom Tags</Label>
         </div>
-        <Input
-          id="tags"
-          value={tags}
-          onChange={(e) => setTags(e.target.value)}
-          placeholder="e.g. spicy, popular, new, featured, vegan, gluten-free"
-        />
+        <div className="flex gap-2">
+          <Input
+            id="tagInput"
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            placeholder="Enter a tag and press Enter or Add"
+            onKeyDown={handleKeyDown}
+          />
+          <Button 
+            type="button" 
+            variant="secondary" 
+            onClick={handleAddTag}
+          >
+            Add
+          </Button>
+        </div>
         <p className="text-xs text-muted-foreground">
-          Add custom tags that will be displayed with the menu item. Separate multiple tags with commas.
+          Add custom tags that will be displayed with the menu item.
         </p>
+        
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2">
+            {tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="flex items-center gap-1 pr-1">
+                {tag}
+                <button 
+                  type="button"
+                  className="ml-1 rounded-full hover:bg-muted p-1"
+                  onClick={() => handleRemoveTag(tag)}
+                >
+                  ×
+                </button>
+              </Badge>
+            ))}
+          </div>
+        )}
       </div>
       
       <div className="flex items-center space-x-2">
