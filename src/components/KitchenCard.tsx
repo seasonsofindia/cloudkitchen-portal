@@ -29,12 +29,7 @@ const KitchenCard = ({ kitchen }: KitchenCardProps) => {
           {kitchen.description}
         </p>
         <div className="flex items-center space-x-1 text-sm text-muted-foreground">
-          <span className="font-medium">{kitchen.rating}</span>
-          <span>★</span>
-          <span>•</span>
           <span>{kitchen.deliveryTime} min</span>
-          <span>•</span>
-          <span>${kitchen.deliveryFee} delivery</span>
         </div>
       </CardContent>
       <CardFooter className="p-4 pt-0">

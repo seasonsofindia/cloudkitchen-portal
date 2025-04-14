@@ -49,8 +49,6 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
     cuisine: kitchen?.cuisine || "",
     imageUrl: kitchen?.imageUrl || "",
     deliveryTime: kitchen?.deliveryTime || 30,
-    deliveryFee: kitchen?.deliveryFee || 2.99,
-    rating: kitchen?.rating || 4.5,
     location: kitchen?.location || "",
     // Delivery platform links
     directOrderLink: kitchen?.directOrderLink || "",
@@ -73,11 +71,10 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
   };
 
   const handleNumberChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    isDecimal = false
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const { name, value } = e.target;
-    const numValue = isDecimal ? parseFloat(value) : parseInt(value);
+    const numValue = parseInt(value);
     if (!isNaN(numValue)) {
       setForm({ ...form, [name]: numValue });
     }
@@ -154,7 +151,7 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label htmlFor="deliveryTime" className="text-sm font-medium">
             Delivery Time (min)
@@ -172,58 +169,25 @@ const KitchenForm = ({ kitchen, onSave, onCancel }: KitchenFormProps) => {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="deliveryFee" className="text-sm font-medium">
-            Delivery Fee ($)
+          <label htmlFor="location" className="text-sm font-medium">
+            Location
           </label>
-          <Input
-            id="deliveryFee"
-            name="deliveryFee"
-            type="number"
-            step="0.01"
-            value={form.deliveryFee}
-            onChange={(e) => handleNumberChange(e, true)}
-            min={0}
-            required
-          />
+          <Select
+            value={form.location}
+            onValueChange={(value) => handleSelectChange("location", value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select location" />
+            </SelectTrigger>
+            <SelectContent>
+              {LOCATIONS.map((location) => (
+                <SelectItem key={location.id} value={location.id}>
+                  {location.name} - {location.address}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
-
-        <div className="space-y-2">
-          <label htmlFor="rating" className="text-sm font-medium">
-            Rating (0-5)
-          </label>
-          <Input
-            id="rating"
-            name="rating"
-            type="number"
-            step="0.1"
-            value={form.rating}
-            onChange={(e) => handleNumberChange(e, true)}
-            min={0}
-            max={5}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="location" className="text-sm font-medium">
-          Location
-        </label>
-        <Select
-          value={form.location}
-          onValueChange={(value) => handleSelectChange("location", value)}
-        >
-          <SelectTrigger>
-            <SelectValue placeholder="Select location" />
-          </SelectTrigger>
-          <SelectContent>
-            {LOCATIONS.map((location) => (
-              <SelectItem key={location.id} value={location.id}>
-                {location.name} - {location.address}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
       </div>
 
       {/* Ordering Options Section */}

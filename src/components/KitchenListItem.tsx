@@ -27,14 +27,8 @@ const KitchenListItem = ({ kitchen }: KitchenListItemProps) => {
               </span>
             </div>
             <div className="text-right">
-              <div className="flex items-center justify-end space-x-1">
-                <span className="font-medium">{kitchen.rating}</span>
-                <span>★</span>
-              </div>
               <div className="text-sm text-muted-foreground mt-1">
                 <span>{kitchen.deliveryTime} min</span>
-                <span> • </span>
-                <span>${kitchen.deliveryFee} delivery</span>
               </div>
             </div>
           </div>

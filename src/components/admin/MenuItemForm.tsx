@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { MenuItem } from "@/types";
 import { toast } from "sonner";
+import { Tag } from "lucide-react";
 
 interface MenuItemFormProps {
   item?: MenuItem;
@@ -112,13 +113,19 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="tags">Tags (comma separated)</Label>
+        <div className="flex items-center gap-2">
+          <Tag className="h-4 w-4" />
+          <Label htmlFor="tags">Custom Tags (comma separated)</Label>
+        </div>
         <Input
           id="tags"
           value={tags}
           onChange={(e) => setTags(e.target.value)}
-          placeholder="e.g. spicy, popular, new"
+          placeholder="e.g. spicy, popular, new, featured, vegan, gluten-free"
         />
+        <p className="text-xs text-muted-foreground">
+          Add custom tags that will be displayed with the menu item. Separate multiple tags with commas.
+        </p>
       </div>
       
       <div className="flex items-center space-x-2">

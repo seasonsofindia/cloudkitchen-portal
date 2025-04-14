@@ -6,8 +6,6 @@ export interface Kitchen {
   cuisine: string;
   imageUrl: string;
   deliveryTime: number;
-  deliveryFee: number;
-  rating: number;
   location: string;
   // Delivery platform links
   directOrderLink?: string;

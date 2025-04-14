@@ -60,12 +60,7 @@ const KitchenDetailPage = () => {
               <span className="bg-white/20 px-3 py-1 rounded-full text-sm">
                 {kitchen.cuisine}
               </span>
-              <div className="flex items-center">
-                <span className="mr-1">{kitchen.rating}</span>
-                <span>★</span>
-              </div>
               <span>{kitchen.deliveryTime} min</span>
-              <span>${kitchen.deliveryFee} delivery</span>
             </div>
           </div>
         </div>
