@@ -177,8 +177,6 @@ const AdminPage = () => {
                       <TableHead>Cuisine</TableHead>
                       <TableHead>Location</TableHead>
                       <TableHead>Delivery Time</TableHead>
-                      <TableHead>Delivery Fee</TableHead>
-                      <TableHead>Rating</TableHead>
                       <TableHead className="text-right">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -194,8 +192,6 @@ const AdminPage = () => {
                           </div>
                         </TableCell>
                         <TableCell>{kitchen.deliveryTime} min</TableCell>
-                        <TableCell>${kitchen.deliveryFee.toFixed(2)}</TableCell>
-                        <TableCell>{kitchen.rating}</TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end space-x-2">
                             <Button
@@ -223,7 +219,7 @@ const AdminPage = () => {
                     
                     {kitchens.length === 0 && (
                       <TableRow>
-                        <TableCell colSpan={7} className="text-center py-6 text-muted-foreground">
+                        <TableCell colSpan={5} className="text-center py-6 text-muted-foreground">
                           No kitchens found. Add your first kitchen!
                         </TableCell>
                       </TableRow>
