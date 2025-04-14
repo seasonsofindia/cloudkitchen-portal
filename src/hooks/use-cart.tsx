@@ -1,4 +1,3 @@
-
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { MenuItem, CartItem } from "@/types";
@@ -89,16 +88,9 @@ export const useCart = create<CartStore>()(
         // Get unique kitchens in cart
         const kitchenIds = new Set(items.map(item => item.kitchenId));
         
-        // Find delivery fee for each kitchen
-        let totalFee = 0;
-        kitchenIds.forEach(id => {
-          const kitchen = data.kitchens.find(k => k.id === id);
-          if (kitchen) {
-            totalFee += kitchen.deliveryFee;
-          }
-        });
-        
-        return totalFee;
+        // Fixed delivery fee per kitchen
+        const feePerKitchen = 4.99;
+        return kitchenIds.size * feePerKitchen;
       },
       
       getTotal: () => {

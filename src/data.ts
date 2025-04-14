@@ -8,7 +8,7 @@ export const user = {
   address: "123 Main St, Anytown",
 };
 
-// Updated kitchen data to include location and ordering options
+// Updated kitchen data without deliveryFee and rating
 const kitchens: Kitchen[] = [
   {
     id: "k1",
@@ -17,8 +17,6 @@ const kitchens: Kitchen[] = [
     cuisine: "Indian",
     imageUrl: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D",
     deliveryTime: 30,
-    deliveryFee: 4.99,
-    rating: 4.7,
     location: "18nd",
     directOrderLink: "https://tasteofindia.com/order",
     phoneNumber: "+1 (555) 123-4567",
@@ -33,8 +31,6 @@ const kitchens: Kitchen[] = [
     cuisine: "American",
     imageUrl: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnVyZ2VyfGVufDB8fDB8fHww",
     deliveryTime: 25,
-    deliveryFee: 3.99,
-    rating: 4.5,
     location: "105orange",
     directOrderLink: "https://burgerjoint.com/order",
     phoneNumber: "+1 (555) 987-6543",
@@ -48,8 +44,6 @@ const kitchens: Kitchen[] = [
     cuisine: "Japanese",
     imageUrl: "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c3VzaGl8ZW58MHx8MHx8fDA%3D",
     deliveryTime: 35,
-    deliveryFee: 5.99,
-    rating: 4.8,
     location: "18nd",
     directOrderLink: "https://sushiexpress.com/order",
     phoneNumber: "+1 (555) 789-0123",
@@ -63,8 +57,6 @@ const kitchens: Kitchen[] = [
     cuisine: "Italian",
     imageUrl: "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGl6emF8ZW58MHx8MHx8fDA%3D",
     deliveryTime: 28,
-    deliveryFee: 4.49,
-    rating: 4.6,
     location: "105orange",
     phoneNumber: "+1 (555) 456-7890",
     uberEatsLink: "https://ubereats.com/restaurant/pizza-palace",
@@ -77,8 +69,6 @@ const kitchens: Kitchen[] = [
     cuisine: "Mexican",
     imageUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGFjb3xlbnwwfHwwfHx8MA%3D%3D",
     deliveryTime: 22,
-    deliveryFee: 3.49,
-    rating: 4.4,
     location: "18nd",
     directOrderLink: "https://tacofiesta.com/order",
     phoneNumber: "+1 (555) 234-5678",
@@ -92,8 +82,6 @@ const kitchens: Kitchen[] = [
     cuisine: "Vietnamese",
     imageUrl: "https://images.unsplash.com/photo-1582878826629-29b7ad1cdc43?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhvfGVufDB8fDB8fHww",
     deliveryTime: 32,
-    deliveryFee: 4.79,
-    rating: 4.5,
     location: "105orange",
     phoneNumber: "+1 (555) 345-6789",
     uberEatsLink: "https://ubereats.com/restaurant/pho-delight",

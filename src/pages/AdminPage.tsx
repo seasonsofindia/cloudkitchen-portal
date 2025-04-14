@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Layout from "@/components/layout/Layout";
 import {
@@ -332,7 +331,6 @@ const AdminPage = () => {
           </TabsContent>
         </Tabs>
         
-        {/* Kitchen Form Dialog */}
         <Dialog open={isKitchenDialogOpen} onOpenChange={setIsKitchenDialogOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
@@ -351,7 +349,6 @@ const AdminPage = () => {
           </DialogContent>
         </Dialog>
         
-        {/* Menu Item Form Dialog */}
         <Dialog open={isMenuItemDialogOpen} onOpenChange={setIsMenuItemDialogOpen}>
           <DialogContent className="max-w-2xl">
             <DialogHeader>
