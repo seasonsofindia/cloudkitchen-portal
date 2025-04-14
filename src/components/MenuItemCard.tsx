@@ -1,6 +1,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { MenuItem } from "@/types";
+import { Badge } from "@/components/ui/badge";
 
 interface MenuItemCardProps {
   item: MenuItem;
@@ -27,7 +28,16 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
           <h3 className="font-medium text-base">{item.name}</h3>
           <span className="font-bold">${item.price.toFixed(2)}</span>
         </div>
-        <p className="text-sm text-muted-foreground line-clamp-2">{item.description}</p>
+        <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{item.description}</p>
+        {item.tags && item.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-auto">
+            {item.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

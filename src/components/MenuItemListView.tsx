@@ -1,5 +1,6 @@
 
 import { MenuItem } from "@/types";
+import { Badge } from "@/components/ui/badge";
 
 interface MenuItemListViewProps {
   item: MenuItem;
@@ -30,9 +31,9 @@ const MenuItemListView = ({ item }: MenuItemListViewProps) => {
           <p className="text-muted-foreground my-2">{item.description}</p>
           <div className="flex flex-wrap gap-2 mt-2">
             {item.tags && item.tags.map((tag) => (
-              <span key={tag} className="text-xs bg-muted px-2 py-1 rounded-full">
+              <Badge key={tag} variant="secondary" className="text-xs">
                 {tag}
-              </span>
+              </Badge>
             ))}
           </div>
         </div>
