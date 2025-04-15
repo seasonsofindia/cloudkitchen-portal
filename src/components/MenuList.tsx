@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import MenuItemCard from "./MenuItemCard";
 import MenuItemListView from "./MenuItemListView";
 import ViewToggle from "./ViewToggle";
@@ -13,13 +13,19 @@ interface MenuListProps {
 const MenuList = ({ items, kitchenId }: MenuListProps) => {
   const [view, setView] = useState<"grid" | "list">("grid");
   const [category, setCategory] = useState<string>("all");
+  const [displayItems, setDisplayItems] = useState<MenuItem[]>([]);
 
+  // Update categories and displayItems whenever items prop changes
+  useEffect(() => {
+    if (category !== "all") {
+      setDisplayItems(items.filter((item) => item.category === category));
+    } else {
+      setDisplayItems(items);
+    }
+  }, [items, category]);
+  
   const categories = ["all", ...new Set(items.map((item) => item.category))];
   
-  const filteredItems = category === "all" 
-    ? items 
-    : items.filter((item) => item.category === category);
-
   return (
     <div>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -43,14 +49,14 @@ const MenuList = ({ items, kitchenId }: MenuListProps) => {
 
       {view === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredItems.map((item) => (
-            <MenuItemCard key={item.id} item={item} kitchenId={kitchenId} />
+          {displayItems.map((item) => (
+            <MenuItemCard key={`${item.id}-${JSON.stringify(item.tags)}`} item={item} kitchenId={kitchenId} />
           ))}
         </div>
       ) : (
         <div className="space-y-4">
-          {filteredItems.map((item) => (
-            <MenuItemListView key={item.id} item={item} kitchenId={kitchenId} />
+          {displayItems.map((item) => (
+            <MenuItemListView key={`${item.id}-${JSON.stringify(item.tags)}`} item={item} kitchenId={kitchenId} />
           ))}
         </div>
       )}

@@ -14,9 +14,11 @@ const KitchenDetailPage = () => {
   const [kitchen, setKitchen] = useState<Kitchen | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   
+  // Always fetch the latest data from the data source when the component mounts or id changes
   useEffect(() => {
     if (id) {
       const foundKitchen = data.kitchens.find(k => k.id === id);
+      // Make sure we're getting the freshest menu items from the data source
       const kitchenItems = data.menuItems.filter(item => item.kitchenId === id);
       
       if (foundKitchen) {
@@ -25,6 +27,18 @@ const KitchenDetailPage = () => {
       }
     }
   }, [id]);
+  
+  // Add this key to force re-render when navigating back to this page
+  useEffect(() => {
+    const refreshTimer = setTimeout(() => {
+      if (id) {
+        const freshItems = data.menuItems.filter(item => item.kitchenId === id);
+        setMenuItems(freshItems);
+      }
+    }, 100);
+    
+    return () => clearTimeout(refreshTimer);
+  }, []);
   
   if (!kitchen) {
     return (
