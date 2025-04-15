@@ -1,5 +1,5 @@
 
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent, useEffect, KeyboardEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +26,13 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
   const [vegetarian, setVegetarian] = useState(item?.vegetarian || false);
   const [tagInput, setTagInput] = useState("");
   const [tags, setTags] = useState<string[]>(item?.tags || []);
+  
+  useEffect(() => {
+    // This ensures we update tags if the item prop changes (e.g., when switching between items)
+    if (item) {
+      setTags(item.tags || []);
+    }
+  }, [item]);
   
   const handleAddTag = () => {
     if (tagInput.trim()) {
@@ -67,7 +74,7 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
     });
   };
   
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       handleAddTag();
@@ -136,7 +143,7 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       <div className="space-y-2">
         <div className="flex items-center gap-2">
           <Tag className="h-4 w-4" />
-          <Label htmlFor="tags">Custom Tags</Label>
+          <Label htmlFor="tagInput">Custom Tags</Label>
         </div>
         <div className="flex gap-2">
           <Input
@@ -160,8 +167,8 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
         
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2">
-            {tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="flex items-center gap-1 pr-1">
+            {tags.map((tag, index) => (
+              <Badge key={`${tag}-${index}`} variant="secondary" className="flex items-center gap-1 pr-1">
                 {tag}
                 <button 
                   type="button"

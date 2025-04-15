@@ -1,6 +1,6 @@
 
 import { MenuItem } from "@/types";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, Tag } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -10,6 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface MenuItemTableProps {
   items: MenuItem[];
@@ -26,6 +27,7 @@ const MenuItemTable = ({ items, onEdit, onDelete }: MenuItemTableProps) => {
           <TableHead>Category</TableHead>
           <TableHead>Price</TableHead>
           <TableHead>Vegetarian</TableHead>
+          <TableHead>Tags</TableHead>
           <TableHead className="text-right">Actions</TableHead>
         </TableRow>
       </TableHeader>
@@ -36,6 +38,19 @@ const MenuItemTable = ({ items, onEdit, onDelete }: MenuItemTableProps) => {
             <TableCell>{item.category}</TableCell>
             <TableCell>${item.price.toFixed(2)}</TableCell>
             <TableCell>{item.vegetarian ? "Yes" : "No"}</TableCell>
+            <TableCell>
+              {item.tags && item.tags.length > 0 ? (
+                <div className="flex flex-wrap gap-1">
+                  {item.tags.map((tag) => (
+                    <Badge key={tag} variant="secondary" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              ) : (
+                <span className="text-muted-foreground">None</span>
+              )}
+            </TableCell>
             <TableCell className="text-right">
               <div className="flex justify-end space-x-2">
                 <Button
@@ -60,7 +75,7 @@ const MenuItemTable = ({ items, onEdit, onDelete }: MenuItemTableProps) => {
         
         {items.length === 0 && (
           <TableRow>
-            <TableCell colSpan={5} className="text-center py-6 text-muted-foreground">
+            <TableCell colSpan={6} className="text-center py-6 text-muted-foreground">
               No menu items found. Add your first item!
             </TableCell>
           </TableRow>
