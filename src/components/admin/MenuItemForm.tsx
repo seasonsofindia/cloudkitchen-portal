@@ -26,10 +26,25 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
   const [vegetarian, setVegetarian] = useState(item?.vegetarian || false);
   const [tags, setTags] = useState<string[]>(item?.tags || []);
   
+  // Reset form when item changes
   useEffect(() => {
-    // This ensures we update tags if the item prop changes (e.g., when switching between items)
     if (item) {
+      setName(item.name || "");
+      setDescription(item.description || "");
+      setPrice(item.price?.toString() || "");
+      setCategory(item.category || "");
+      setImageUrl(item.imageUrl || "");
+      setVegetarian(item.vegetarian || false);
       setTags(item.tags || []);
+    } else {
+      // Reset form for new items
+      setName("");
+      setDescription("");
+      setPrice("");
+      setCategory("");
+      setImageUrl("");
+      setVegetarian(false);
+      setTags([]);
     }
   }, [item]);
   
@@ -57,6 +72,10 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       tags,
       kitchenId
     });
+  };
+
+  const handleTagsChange = (updatedTags: string[]) => {
+    setTags(updatedTags);
   };
   
   return (
@@ -113,7 +132,7 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
         </FormField>
       </div>
       
-      <TagInput tags={tags} onChange={setTags} />
+      <TagInput tags={tags} onChange={handleTagsChange} />
       
       <div className="flex items-center space-x-2">
         <Checkbox

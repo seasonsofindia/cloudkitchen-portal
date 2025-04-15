@@ -1,5 +1,5 @@
 
-import { useState, KeyboardEvent } from "react";
+import { useState, KeyboardEvent, useEffect } from "react";
 import { Tag } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,19 +13,29 @@ interface TagInputProps {
 
 const TagInput = ({ tags, onChange }: TagInputProps) => {
   const [tagInput, setTagInput] = useState("");
+  const [localTags, setLocalTags] = useState<string[]>(tags);
+  
+  // Sync local tags with props when they change externally
+  useEffect(() => {
+    setLocalTags(tags);
+  }, [tags]);
 
   const handleAddTag = () => {
     if (tagInput.trim()) {
       // Add the tag if it doesn't already exist
-      if (!tags.includes(tagInput.trim())) {
-        onChange([...tags, tagInput.trim()]);
+      if (!localTags.includes(tagInput.trim())) {
+        const newTags = [...localTags, tagInput.trim()];
+        setLocalTags(newTags);
+        onChange(newTags);
       }
       setTagInput("");
     }
   };
 
   const handleRemoveTag = (tagToRemove: string) => {
-    onChange(tags.filter(tag => tag !== tagToRemove));
+    const newTags = localTags.filter(tag => tag !== tagToRemove);
+    setLocalTags(newTags);
+    onChange(newTags);
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -61,9 +71,9 @@ const TagInput = ({ tags, onChange }: TagInputProps) => {
         Add custom tags that will be displayed with the menu item.
       </p>
       
-      {tags.length > 0 && (
+      {localTags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-2">
-          {tags.map((tag, index) => (
+          {localTags.map((tag, index) => (
             <Badge key={`${tag}-${index}`} variant="secondary" className="flex items-center gap-1 pr-1">
               {tag}
               <button 
