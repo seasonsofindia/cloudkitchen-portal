@@ -28,24 +28,17 @@ const KitchenDetailPage = () => {
     }
   }, [id]);
   
-  // Add this additional effect to force a refresh every 2 seconds to detect changes
+  // Add this key to force re-render when navigating back to this page
   useEffect(() => {
-    const refreshInterval = setInterval(() => {
+    const refreshTimer = setTimeout(() => {
       if (id) {
         const freshItems = data.menuItems.filter(item => item.kitchenId === id);
-        setMenuItems(prevItems => {
-          // Only update if there's a change to avoid unnecessary re-renders
-          if (JSON.stringify(prevItems) !== JSON.stringify(freshItems)) {
-            console.log("Menu items updated:", freshItems);
-            return freshItems;
-          }
-          return prevItems;
-        });
+        setMenuItems(freshItems);
       }
-    }, 2000); // Check for updates every 2 seconds
+    }, 100);
     
-    return () => clearInterval(refreshInterval);
-  }, [id]);
+    return () => clearTimeout(refreshTimer);
+  }, []);
   
   if (!kitchen) {
     return (

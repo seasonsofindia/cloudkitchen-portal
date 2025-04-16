@@ -17,7 +17,6 @@ const MenuList = ({ items, kitchenId }: MenuListProps) => {
 
   // Update categories and displayItems whenever items prop changes
   useEffect(() => {
-    console.log("MenuList received items update:", items);
     if (category !== "all") {
       setDisplayItems(items.filter((item) => item.category === category));
     } else {
@@ -51,21 +50,13 @@ const MenuList = ({ items, kitchenId }: MenuListProps) => {
       {view === "grid" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {displayItems.map((item) => (
-            <MenuItemCard 
-              key={`${item.id}-${JSON.stringify(item.tags || [])}-grid`} 
-              item={item} 
-              kitchenId={kitchenId} 
-            />
+            <MenuItemCard key={`${item.id}-${JSON.stringify(item.tags)}`} item={item} kitchenId={kitchenId} />
           ))}
         </div>
       ) : (
         <div className="space-y-4">
           {displayItems.map((item) => (
-            <MenuItemListView 
-              key={`${item.id}-${JSON.stringify(item.tags || [])}-list`} 
-              item={item} 
-              kitchenId={kitchenId} 
-            />
+            <MenuItemListView key={`${item.id}-${JSON.stringify(item.tags)}`} item={item} kitchenId={kitchenId} />
           ))}
         </div>
       )}

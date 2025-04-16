@@ -29,17 +29,15 @@ const MenuItemCard = ({ item }: MenuItemCardProps) => {
           <span className="font-bold">${item.price.toFixed(2)}</span>
         </div>
         <p className="text-sm text-muted-foreground line-clamp-2 mb-2">{item.description}</p>
-        <div className="flex flex-wrap gap-1 mt-auto">
-          {item.tags && item.tags.length > 0 ? (
-            item.tags.map((tag, index) => (
-              <Badge key={`${tag}-${index}`} variant="secondary" className="text-xs">
+        {item.tags && item.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1 mt-auto">
+            {item.tags.map((tag) => (
+              <Badge key={tag} variant="secondary" className="text-xs">
                 {tag}
               </Badge>
-            ))
-          ) : (
-            <span className="text-xs text-muted-foreground">No tags</span>
-          )}
-        </div>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
