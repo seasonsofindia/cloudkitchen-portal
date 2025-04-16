@@ -17,7 +17,7 @@ const KitchenListItem = ({ kitchen }: KitchenListItemProps) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="flex-1 p-4 flex flex-col justify-between">
+      <Link to={`/kitchen/${kitchen.id}`} className="flex-1 p-4 flex flex-col justify-between">
         <div>
           <div className="flex justify-between items-start">
             <div>
@@ -35,11 +35,9 @@ const KitchenListItem = ({ kitchen }: KitchenListItemProps) => {
           <p className="text-muted-foreground my-2">{kitchen.description}</p>
         </div>
         <div className="flex justify-end mt-2">
-          <Link to={`/kitchen/${kitchen.id}`}>
-            <Button variant="outline">View Menu</Button>
-          </Link>
+          <Button variant="outline">View Menu</Button>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
