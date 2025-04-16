@@ -30,11 +30,15 @@ const MenuItemListView = ({ item }: MenuItemListViewProps) => {
           </div>
           <p className="text-muted-foreground my-2">{item.description}</p>
           <div className="flex flex-wrap gap-2 mt-2">
-            {item.tags && item.tags.map((tag) => (
-              <Badge key={tag} variant="secondary" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
+            {item.tags && item.tags.length > 0 ? (
+              item.tags.map((tag, index) => (
+                <Badge key={`${tag}-${index}`} variant="secondary" className="text-xs">
+                  {tag}
+                </Badge>
+              ))
+            ) : (
+              <span className="text-xs text-muted-foreground">No tags</span>
+            )}
           </div>
         </div>
       </div>
