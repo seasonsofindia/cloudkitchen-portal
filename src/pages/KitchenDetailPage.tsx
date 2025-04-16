@@ -8,37 +8,32 @@ import { ArrowLeft } from "lucide-react";
 import data from "@/data";
 import { Kitchen, MenuItem } from "@/types";
 import OrderOptionsPopover from "@/components/OrderOptionsPopover";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 const KitchenDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const [kitchen, setKitchen] = useState<Kitchen | null>(null);
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const queryClient = useQueryClient();
   
-  // Always fetch the latest data from the data source when the component mounts or id changes
-  useEffect(() => {
-    if (id) {
-      const foundKitchen = data.kitchens.find(k => k.id === id);
-      // Make sure we're getting the freshest menu items from the data source
-      const kitchenItems = data.menuItems.filter(item => item.kitchenId === id);
-      
-      if (foundKitchen) {
-        setKitchen(foundKitchen);
-        setMenuItems(kitchenItems);
-      }
-    }
-  }, [id]);
+  // Use React Query to ensure we get fresh kitchen data
+  const { data: kitchen } = useQuery({
+    queryKey: ["kitchen", id],
+    queryFn: () => data.kitchens.find(k => k.id === id) || null,
+    staleTime: 0, // Always consider data stale to force fresh fetch
+    enabled: !!id,
+  });
   
-  // Add this key to force re-render when navigating back to this page
+  // Use React Query for menu items as well
+  const { data: menuItems = [] } = useQuery({
+    queryKey: ["menuItems", id],
+    queryFn: () => data.menuItems.filter(item => item.kitchenId === id),
+    staleTime: 0,
+    enabled: !!id,
+  });
+  
   useEffect(() => {
-    const refreshTimer = setTimeout(() => {
-      if (id) {
-        const freshItems = data.menuItems.filter(item => item.kitchenId === id);
-        setMenuItems(freshItems);
-      }
-    }, 100);
-    
-    return () => clearTimeout(refreshTimer);
-  }, []);
+    // Force a refetch of the "kitchens" query when navigating to this page
+    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+  }, [queryClient]);
   
   if (!kitchen) {
     return (

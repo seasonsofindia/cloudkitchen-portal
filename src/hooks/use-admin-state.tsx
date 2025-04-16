@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Kitchen, MenuItem } from "@/types";
 import { toast } from "sonner";
@@ -24,6 +25,13 @@ export function useAdminState() {
     }
   }, []);
   
+  // Helper function to invalidate all relevant queries
+  const invalidateQueries = () => {
+    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    queryClient.invalidateQueries({ queryKey: ["kitchen"] }); 
+    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+  };
+  
   const handleAddKitchen = (kitchenData: Omit<Kitchen, "id">) => {
     const newKitchen: Kitchen = {
       ...kitchenData,
@@ -34,7 +42,7 @@ export function useAdminState() {
     setKitchens(updatedKitchens);
     
     data.kitchens = updatedKitchens;
-    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    invalidateQueries();
     
     setIsKitchenDialogOpen(false);
     toast.success("Kitchen added successfully");
@@ -52,7 +60,7 @@ export function useAdminState() {
     setKitchens(updatedKitchens);
     
     data.kitchens = updatedKitchens;
-    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    invalidateQueries();
     
     setSelectedKitchen(null);
     setIsKitchenDialogOpen(false);
@@ -69,8 +77,7 @@ export function useAdminState() {
     data.kitchens = updatedKitchens;
     data.menuItems = updatedMenuItems;
     
-    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
-    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    invalidateQueries();
     
     if (selectedKitchenId === id && kitchens.length > 1) {
       const remainingKitchens = kitchens.filter((kitchen) => kitchen.id !== id);
@@ -90,7 +97,7 @@ export function useAdminState() {
     setMenuItems(updatedItems);
     
     data.menuItems = updatedItems;
-    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    invalidateQueries();
     
     setIsMenuItemDialogOpen(false);
     toast.success("Menu item added successfully");
@@ -108,7 +115,7 @@ export function useAdminState() {
     setMenuItems(updatedItems);
     
     data.menuItems = updatedItems;
-    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    invalidateQueries();
     
     setSelectedMenuItem(null);
     setIsMenuItemDialogOpen(false);
@@ -120,7 +127,7 @@ export function useAdminState() {
     setMenuItems(updatedItems);
     
     data.menuItems = updatedItems;
-    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    invalidateQueries();
     
     toast.success("Menu item deleted successfully");
   };

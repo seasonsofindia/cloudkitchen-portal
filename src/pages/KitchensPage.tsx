@@ -16,11 +16,14 @@ const KitchensPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
   
-  // Use React Query to fetch kitchens data
+  // Use React Query with staleTime: 0 to ensure we always get fresh data
   const { data: kitchensData } = useQuery({
     queryKey: ["kitchens"],
-    queryFn: () => data.kitchens, // In a real app, this would be an API call
+    queryFn: () => data.kitchens,
     initialData: data.kitchens,
+    staleTime: 0, // Consider data immediately stale to force refetch
+    refetchOnMount: true, // Always refetch when component mounts
+    refetchOnWindowFocus: true, // Refetch when window regains focus
   });
   
   useEffect(() => {
