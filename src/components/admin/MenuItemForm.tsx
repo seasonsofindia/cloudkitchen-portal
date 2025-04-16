@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { Label } from "@/components/ui/label";
 import FormField from "./form/FormField";
 import TagInput from "./form/TagInput";
+import ImageUpload from "./form/ImageUpload";
 
 interface MenuItemFormProps {
   item?: MenuItem;
@@ -62,12 +63,15 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
       return;
     }
     
+    // Use default image if none provided
+    const finalImageUrl = imageUrl || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80";
+    
     onSave({
       name,
       description,
       price: parsedPrice,
       category,
-      imageUrl: imageUrl || "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80",
+      imageUrl: finalImageUrl,
       vegetarian,
       tags,
       kitchenId
@@ -76,6 +80,10 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
 
   const handleTagsChange = (updatedTags: string[]) => {
     setTags(updatedTags);
+  };
+
+  const handleImageUpload = (url: string) => {
+    setImageUrl(url);
   };
   
   return (
@@ -121,16 +129,12 @@ const MenuItemForm = ({ item, kitchenId, onSave, onCancel }: MenuItemFormProps) 
             required
           />
         </FormField>
-        
-        <FormField id="imageUrl" label="Image URL">
-          <Input
-            id="imageUrl"
-            type="url"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
-        </FormField>
       </div>
+      
+      <ImageUpload 
+        currentImageUrl={imageUrl}
+        onImageUpload={handleImageUpload}
+      />
       
       <TagInput tags={tags} onChange={handleTagsChange} />
       
