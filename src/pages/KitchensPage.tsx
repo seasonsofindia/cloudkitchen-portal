@@ -4,9 +4,10 @@ import { useSearchParams } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 import KitchenList from "@/components/KitchenList";
 import { Input } from "@/components/ui/input";
-import { Search, MapPin } from "lucide-react";
+import { Search } from "lucide-react";
 import data from "@/data";
 import LocationSelector from "@/components/LocationSelector";
+import { useQuery } from "@tanstack/react-query";
 
 const KitchensPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,6 +15,13 @@ const KitchensPage = () => {
   
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+  
+  // Use React Query to fetch kitchens data
+  const { data: kitchensData } = useQuery({
+    queryKey: ["kitchens"],
+    queryFn: () => data.kitchens, // In a real app, this would be an API call
+    initialData: data.kitchens,
+  });
   
   useEffect(() => {
     // Priority: URL param > localStorage > null
@@ -35,7 +43,7 @@ const KitchensPage = () => {
     setSearchParams({ location: locationId });
   };
   
-  const filteredKitchens = data.kitchens
+  const filteredKitchens = kitchensData
     .filter(kitchen => 
       !selectedLocation || kitchen.location === selectedLocation || !kitchen.location
     )

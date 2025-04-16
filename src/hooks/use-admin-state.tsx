@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from "react";
 import { Kitchen, MenuItem } from "@/types";
 import { toast } from "sonner";
 import data from "@/data";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useAdminState() {
   const [kitchens, setKitchens] = useState<Kitchen[]>([]);
@@ -13,6 +13,8 @@ export function useAdminState() {
   const [isMenuItemDialogOpen, setIsMenuItemDialogOpen] = useState(false);
   const [selectedKitchenId, setSelectedKitchenId] = useState<string | null>(null);
   
+  const queryClient = useQueryClient();
+  
   useEffect(() => {
     setKitchens(data.kitchens);
     setMenuItems(data.menuItems);
@@ -22,14 +24,18 @@ export function useAdminState() {
     }
   }, []);
   
-  // Kitchen handlers
   const handleAddKitchen = (kitchenData: Omit<Kitchen, "id">) => {
     const newKitchen: Kitchen = {
       ...kitchenData,
       id: `k${kitchens.length + 1}`,
     };
     
-    setKitchens([...kitchens, newKitchen]);
+    const updatedKitchens = [...kitchens, newKitchen];
+    setKitchens(updatedKitchens);
+    
+    data.kitchens = updatedKitchens;
+    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    
     setIsKitchenDialogOpen(false);
     toast.success("Kitchen added successfully");
   };
@@ -44,16 +50,27 @@ export function useAdminState() {
     );
     
     setKitchens(updatedKitchens);
+    
+    data.kitchens = updatedKitchens;
+    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    
     setSelectedKitchen(null);
     setIsKitchenDialogOpen(false);
     toast.success("Kitchen updated successfully");
   };
   
   const handleDeleteKitchen = (id: string) => {
-    setKitchens(kitchens.filter((kitchen) => kitchen.id !== id));
+    const updatedKitchens = kitchens.filter((kitchen) => kitchen.id !== id);
+    setKitchens(updatedKitchens);
     
-    // Also delete all menu items for this kitchen
-    setMenuItems(menuItems.filter((item) => item.kitchenId !== id));
+    const updatedMenuItems = menuItems.filter((item) => item.kitchenId !== id);
+    setMenuItems(updatedMenuItems);
+    
+    data.kitchens = updatedKitchens;
+    data.menuItems = updatedMenuItems;
+    
+    queryClient.invalidateQueries({ queryKey: ["kitchens"] });
+    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
     
     if (selectedKitchenId === id && kitchens.length > 1) {
       const remainingKitchens = kitchens.filter((kitchen) => kitchen.id !== id);
@@ -63,14 +80,18 @@ export function useAdminState() {
     toast.success("Kitchen deleted successfully");
   };
   
-  // Menu item handlers
   const handleAddMenuItem = (itemData: Omit<MenuItem, "id">) => {
     const newItem: MenuItem = {
       ...itemData,
       id: `i${menuItems.length + 1}`,
     };
     
-    setMenuItems([...menuItems, newItem]);
+    const updatedItems = [...menuItems, newItem];
+    setMenuItems(updatedItems);
+    
+    data.menuItems = updatedItems;
+    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    
     setIsMenuItemDialogOpen(false);
     toast.success("Menu item added successfully");
   };
@@ -85,13 +106,22 @@ export function useAdminState() {
     );
     
     setMenuItems(updatedItems);
+    
+    data.menuItems = updatedItems;
+    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    
     setSelectedMenuItem(null);
     setIsMenuItemDialogOpen(false);
     toast.success("Menu item updated successfully");
   };
   
   const handleDeleteMenuItem = (id: string) => {
-    setMenuItems(menuItems.filter((item) => item.id !== id));
+    const updatedItems = menuItems.filter((item) => item.id !== id);
+    setMenuItems(updatedItems);
+    
+    data.menuItems = updatedItems;
+    queryClient.invalidateQueries({ queryKey: ["menuItems"] });
+    
     toast.success("Menu item deleted successfully");
   };
 
