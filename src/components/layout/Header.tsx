@@ -56,7 +56,7 @@ const Header = () => {
             </Sheet>
           )}
           <Link to="/" className="flex items-center space-x-2">
-            <span className="font-bold text-xl tracking-tight text-orange-500">CloudKitchen</span>
+            <span className="font-bold text-xl tracking-tight text-orange-500">FoodFactory</span>
           </Link>
         </div>
         

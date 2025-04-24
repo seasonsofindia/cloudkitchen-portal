@@ -5,7 +5,7 @@ import { getLocationById } from "@/utils/locations";
 
 const Footer = () => {
   const [contactInfo, setContactInfo] = useState({
-    email: "info@cloudkitchen.com",
+    email: "info@foodfactory.com",
     phone: "(123) 456-7890",
     address: "123 Food St, Flavor City"
   });
@@ -47,7 +47,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">CloudKitchen</h3>
+            <h3 className="text-lg font-semibold mb-4">FoodFactory</h3>
             <p className="text-sm text-gray-300">
               Your favorite food from multiple kitchens, all in one place.
             </p>
@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
         <div className="mt-8 pt-6 border-t border-gray-700">
           <p className="text-sm text-center text-gray-300">
-            &copy; {new Date().getFullYear()} CloudKitchen. All rights reserved.
+            &copy; {new Date().getFullYear()} FoodFactory. All rights reserved.
           </p>
         </div>
       </div>
