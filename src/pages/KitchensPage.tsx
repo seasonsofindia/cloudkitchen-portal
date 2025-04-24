@@ -60,9 +60,9 @@ const KitchensPage = () => {
     <Layout>
       <div className="max-w-5xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-4">Our Cloud Kitchens</h1>
+          <h1 className="text-3xl font-bold mb-4">Our Kitchens</h1>
           <p className="text-muted-foreground">
-            Browse our selection of specialized cloud kitchens, each offering unique cuisines and flavors.
+            Browse our selection of specialized kitchens, each offering unique cuisines and flavors.
           </p>
         </div>
         

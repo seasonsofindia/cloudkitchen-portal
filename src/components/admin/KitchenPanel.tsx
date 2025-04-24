@@ -30,9 +30,9 @@ const KitchenPanel = ({
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle>Cloud Kitchens</CardTitle>
+          <CardTitle>Kitchens</CardTitle>
           <CardDescription>
-            Manage your cloud kitchens here. Add, edit, or remove kitchens.
+            Manage your kitchens here. Add, edit, or remove kitchens.
           </CardDescription>
         </div>
         <Button
